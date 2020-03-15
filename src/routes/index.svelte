@@ -3,7 +3,7 @@
 </svelte:head>
 
 <script>
-    import TaggedLinks from "../components/TaggedLinks.svelte";
+    import TaggedLinks from '../components/TaggedLinks.svelte';
 </script>
 
 <TaggedLinks></TaggedLinks>
