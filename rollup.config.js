@@ -7,7 +7,14 @@ import { terser } from 'rollup-plugin-terser';
 import config from 'sapper/config/rollup.js';
 import pkg from './package.json';
 import sapperEnv from 'sapper-environment'
+import sveltePreprocess from 'svelte-preprocess'
 import includePaths from 'rollup-plugin-includepaths';
+
+let preprocess = sveltePreprocess({
+	scss: {
+		includePaths: ['src']
+	}
+});
 
 const includePathOptions = {
 	include: {},
@@ -35,7 +42,8 @@ export default {
 			svelte({
 				dev,
 				hydratable: true,
-				emitCss: true
+				emitCss: true,
+				preprocess
 			}),
 			resolve({
 				browser: true,
@@ -79,7 +87,8 @@ export default {
 			}),
 			svelte({
 				generate: 'ssr',
-				dev
+				dev,
+				preprocess
 			}),
 			resolve({
 				dedupe: ['svelte']
