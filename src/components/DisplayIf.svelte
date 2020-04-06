@@ -5,7 +5,7 @@
 </script>
 
 {#if display}
-    <div style="display: {display ? 'block' : 'none'}" transition:slide>
+    <div transition:slide>
         <slot />
     </div>
 {:else}

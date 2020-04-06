@@ -58,7 +58,7 @@
         {#if li.items && li.items.length > 0}
             <DisplayIf display="{ displayList === index }">
                 <ul>
-                  {#each li.items as subLi, index}
+                  {#each li.items as subLi}
                       <li>{ subLi.name }</li>
                   {/each}
                 </ul>
