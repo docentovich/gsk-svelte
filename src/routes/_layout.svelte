@@ -11,6 +11,7 @@
 
 <style lang="scss">
 	main {
+		overflow:auto;
 		background: url('/bg.jpg') top center no-repeat #dfdfdf;
 		background-size: 100% auto;
 	}

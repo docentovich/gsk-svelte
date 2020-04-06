@@ -1,13 +1,10 @@
 <script>
 	export let segment;
-
-	$: console.log('segment', segment);
 </script>
 
 <style>
 </style>
 
-segment: {segment}<br>
 <nav>
 	<ul>
 		<li><a aria-current='{segment === undefined ? "page" : undefined}' href='.'>home</a></li>
