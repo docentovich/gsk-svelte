@@ -13,6 +13,7 @@
     }
 
     .wrapper {
+        width: 100%;
         position: relative;
 
         &:after {

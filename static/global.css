@@ -55,6 +55,12 @@ main {
   height: 100%;
 }
 
+body {
+  overflow:auto;
+  background: url('/bg.jpg') top center no-repeat #dfdfdf;
+  background-size: 100% auto;
+}
+
 .container {
   max-width: 1170px;
   padding: 0 15px;
