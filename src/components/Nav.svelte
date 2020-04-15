@@ -26,7 +26,7 @@
 
   ul {
     padding: 0;
-    margin: 0;
+    margin: 0 auto;
 
     display: flex;
     justify-content: center;
@@ -58,27 +58,21 @@
     &:hover {
       color: #fff;
       box-shadow: 0 0 5px rgba(225, 219, 201, 0.75);
-      background-image: linear-gradient(
-        to bottom,
-        #4f2b25 0,
-        #9b7d79 100%
-      );
+      background-image: linear-gradient(to bottom, #4f2b25 0, #9b7d79 100%);
     }
   }
 </style>
 
 <nav>
-  <div class="container">
-    <ul>
-      {#each list as navItem}
-        <li>
-          <a
+  <ul class="container">
+    {#each list as navItem}
+      <li>
+        <a
             aria-current={segment === navItem.link ? 'page' : undefined}
             href={navItem.link}>
-            {navItem.name}
-          </a>
-        </li>
-      {/each}
-    </ul>
-  </div>
+          {navItem.name}
+        </a>
+      </li>
+    {/each}
+  </ul>
 </nav>

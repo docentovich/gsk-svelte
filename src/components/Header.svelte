@@ -1,3 +1,10 @@
+<script>
+  import Nav from '../components/Nav.svelte'
+  import SearchInput from './SearchInput.svelte'
+
+  export let segment
+</script>
+
 <style lang="scss">
   $first-break-point: 769px;
   $second-break-point: 680px;
@@ -31,7 +38,7 @@
     flex-grow: 1;
 
     line-height: 63px;
-    font-family: "Andantino", sans-serif;
+    font-family: 'Andantino', sans-serif;
     text-shadow: 0 3px 7px rgba(0, 0, 0, 0.35);
     font-size: 50px;
     font-weight: 400;
@@ -80,9 +87,9 @@
       width: 51px;
       padding-left: 10px;
 
-      content: "";
+      content: '';
       display: block;
-      background: url("/phone-big.png") no-repeat;
+      background: url('/phone-big.png') no-repeat;
     }
   }
 
@@ -112,29 +119,22 @@
       width: 11px;
       height: 17px;
 
-      content: "";
+      content: '';
       display: block;
       position: absolute;
-      background-image: url("/pointer.png");
+      background-image: url('/pointer.png');
     }
   }
 </style>
 
-<script>
-  import Nav from "../components/Nav.svelte";
-  import SearchInput from "./SearchInput.svelte";
-
-  export let segment;
-</script>
-
 <header class="container">
   <div class="logo">
-    <img src="logo.png" alt="" />
+    <img src="logo.png" alt="Гор-строй комплекс" />
   </div>
   <span class="slogan">Проектирование и согласование</span>
   <div class="right-panel">
     <a class="phone" href="tel:88126289395">(812) 628-93-95</a>
-    <a class="contact-button" href="contacts">Контакты</a>
+    <a class="contact-button" href="/contacts">Контакты</a>
     <div>
       <SearchInput />
     </div>
