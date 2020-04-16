@@ -10,13 +10,13 @@
 
 <script>
   import PostLinksMain from '../components/PostLinksMain.svelte'
+  import { metaDataStore } from '../store'
   export let page
-  console.log(page);
 </script>
 
 <svelte:head>
-  <title>ГСК-строй | Проектная организация</title>
-  <meta name="description" content="{page.meta._yoast_wpseo_metadesc}">
+  <title>{$metaDataStore} | Проектная организация</title>
+  <meta name="description" content={page.meta._yoast_wpseo_metadesc} />
 </svelte:head>
 
 <article class="content">
@@ -56,9 +56,7 @@
 
   <article>
     <header>
-      <h2>
-        {page.title.rendered}
-      </h2>
+      <h2>{page.title.rendered}</h2>
     </header>
     <div>
       {@html page.content.rendered}
