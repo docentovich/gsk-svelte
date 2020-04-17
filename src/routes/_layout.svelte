@@ -1,11 +1,12 @@
 <script context="module">
+  export const siteData = { metaData: {} }
+
   export async function preload() {
     const { name } = await (
       await this.fetch(process.env.SAPPER_APP_API_URL)
     ).json()
-    return {
-      metaData: name,
-    }
+
+    siteData.metaData = { name }
   }
 </script>
 
@@ -15,11 +16,8 @@
   import News from '../components/News.svelte'
   import Footer from '../components/Footer.svelte'
   import Header from '../components/Header.svelte'
-  import { metaDataStore } from '../store.js'
 
   export let segment
-  export let metaData
-  metaDataStore.set(metaData)
 </script>
 
 <style lang="scss">

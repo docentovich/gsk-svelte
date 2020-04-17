@@ -10,14 +10,12 @@
 
 <script>
   import PostLinksMain from '../components/PostLinksMain.svelte'
-  import { metaDataStore } from '../store'
+  import MetaData from '../components/MetaData.svelte'
+
   export let page
 </script>
 
-<svelte:head>
-  <title>{$metaDataStore} | Проектная организация</title>
-  <meta name="description" content={page.meta._yoast_wpseo_metadesc} />
-</svelte:head>
+<MetaData title="Главная" description="Описание главной" />
 
 <article class="content">
   <header>

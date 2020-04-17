@@ -1,6 +1,8 @@
-<svelte:head>
-	<title>About</title>
-</svelte:head>
+<script>
+  import MetaData from "../components/MetaData.svelte";
+</script>
+
+<MetaData title="about" description="Описание about" />
 
 <h1>About this site</h1>
 
