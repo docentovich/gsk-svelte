@@ -1,22 +1,72 @@
+<style lang="scss">
+  @import 'varibales';
+  footer {
+    padding: 10px 0;
+    border-top: 5px solid #9c7e79;
+    font-family: MyriadPro, serif;
+    font-size: 18px;
+  }
+
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    & > * {
+      text-align: center;
+      margin: 10px 0;
+
+      @media (max-width: $first-break-point) {
+        margin: 10px auto;
+      }
+    }
+  }
+
+  .address {
+    max-width: 360px;
+    text-align: center;
+
+    & > * {
+      display: inline;
+      font-style: normal;
+    }
+  }
+
+  .contacts a {
+    display: block;
+    text-decoration: none;
+    text-align: right;
+  }
+</style>
+
 <footer>
-  <div class="links">
-    <noindex>
-      <a href="http://www.liveinternet.ru/click" target="_blank">
-        <img
-          src="http://counter.yadro.ru/hit?t44.11;r;s1366*768*24;uhttp%3A//www.gsk-stroy.ru/;h%u041F%u0440%u043E%u0435%u043A%u0442%u043D%u043E-%u0441%u0442%u0440%u043E%u0438%u0442%u0435%u043B%u044C%u043D%u0430%u044F%20%u043E%u0440%u0433%u0430%u043D%u0438%u0437%u0430%u0446%u0438%u044F%20%u0413%u0421%u041A-%u0421%u0442%u0440%u043E%u0439.%20%u041F%u0440%u043E%u0435%u043A%u0442%u0438%u0440%u043E%u0432%u0430%u043D%u0438%u0435%20%u0438%20%u0441%u0442%u0440%u043E%u0438%u0442%u0435%u043B%u044C%u0441%u0442%u0432%u043E%20%u043A%u043E%u0442%u0442;0.9806285318029626"
-          alt=""
-          title="LiveInternet"
-          width="31"
-          height="31"
-          border="0" />
+  <div class="container">
+    <div class="links">
+      <a href="/sitemap">
+        <img src="sm.png" alt="карта сайта" />
       </a>
-    </noindex>
-    <a href="/sitemap">
-      <img src="sm.png" alt="карта сайта" />
-    </a>
+    </div>
+
+    <div class="address">
+      <span id="author" itemprop="author">Гск-проект.</span>
+      <address
+        id="address"
+        itemprop="address"
+        itemscope
+        itemtype="http://schema.org/PostalAddress">
+        <span itemprop="streetAddress">
+          Набережная Обводного Канала дом 150.
+        </span>
+        <span itemprop="postalCode">192168</span>
+        <span itemprop="addressLocality">г. Санкт-Петербург</span>
+      </address>
+    </div>
+
+    <div class="contacts">
+      <a href="tel:(812) 628-93-95">(812) 628-93-95</a>
+      <a href="tel:gsk-stroy@mail.ru" id="email" itemprop="email">
+        gsk-stroy@mail.ru
+      </a>
+    </div>
   </div>
-
-  <address>г.Санкт-Петербург, Набережная Обводного Канала дом 150.</address>
-
-  <a href="tel:(812) 628-93-95">(812) 628-93-95</a>
 </footer>

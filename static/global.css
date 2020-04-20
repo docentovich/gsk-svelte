@@ -11,6 +11,12 @@
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: "MyriadPro";
+  src: url("fonts/MyriadProRegular.woff") format("woff");
+  font-style: normal;
+  font-weight: 400
+}
 
 body {
   margin: 0;

@@ -3,14 +3,12 @@
   import SearchInput from './SearchInput.svelte'
 
   export let segment
+  export let navList
 </script>
 
 <style lang="scss">
-  $first-break-point: 769px;
-  $second-break-point: 680px;
-  header {
-    margin-top: 21px;
-
+  @import "varibales";
+  header .container {
     box-sizing: border-box;
     display: flex;
     justify-content: space-between;
@@ -18,7 +16,7 @@
     align-items: center;
   }
 
-  .logo {
+  #logo {
     height: 127px;
     text-align: left;
 
@@ -44,6 +42,7 @@
     font-weight: 400;
     color: #5f2a21;
     text-align: center;
+    text-decoration: none;
 
     @media (max-width: $first-break-point) {
       font-size: 40px;
@@ -127,18 +126,43 @@
   }
 </style>
 
-<header class="container">
-  <div class="logo">
-    <img src="logo.png" alt="Гор-строй комплекс" />
-  </div>
-  <span class="slogan">Проектирование и согласование</span>
-  <div class="right-panel">
-    <a class="phone" href="tel:88126289395">(812) 628-93-95</a>
-    <a class="contact-button" href="/contacts">Контакты</a>
-    <div>
-      <SearchInput />
-    </div>
-  </div>
-</header>
+<header>
+  <div
+      id="organization"
+      class="container"
+      itemprop="publisher"
+      itemscope
+      itemtype="http://schema.org/Organization"
+      itemref="address email">
+    <a
+        href="/"
+        id="logo"
+        itemprop="logo"
+        itemscope
+        itemtype="http://schema.org/ImageObject">
+      <img src="/logo.png" alt="Гор-строй комплекс. Строительная организация"/>
+      <meta itemprop="url" content="/logo.png"/>
+      <meta itemprop="width" content="400"/>
+      <meta itemprop="height" content="60"/>
+      <meta
+          itemprop="description"
+          content="Гор-строй комплекс. Строительная организация"/>
+    </a>
 
-<Nav {segment} />
+    <a class="slogan" href="/" itemprop="url">Проектирование и согласование</a>
+
+    <div class="right-panel">
+      <a class="phone" href="tel:88126289395" itemprop="telephone">
+        (812) 628-93-95
+      </a>
+      <a class="contact-button" href="/contacts">Контакты</a>
+      <div>
+        <SearchInput/>
+      </div>
+    </div>
+
+    <meta itemprop="name" content="Гор-строй комплекс"/>
+  </div>
+
+  <Nav {segment} {navList}/>
+</header>

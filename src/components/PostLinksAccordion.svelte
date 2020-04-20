@@ -1,26 +1,11 @@
 <script>
   import DisplayIf from './DisplayIf.svelte'
-
-  const data = [mockData(1), mockData(2), mockData(3), mockData(4), mockData(5)]
-
-  function mockData(index) {
-    return {
-      name: `Taxonomy ${index}`,
-      items: [
-        { name: `lorem ${index * 10 + 1}` },
-        { name: `lorem ${index * 10 + 2}` },
-        { name: `lorem ${index * 10 + 3}` },
-        { name: `lorem ${index * 10 + 4}` },
-        { name: `lorem ${index * 10 + 5}` },
-      ],
-    }
-  }
-
   let activeLi = null
 
   function toggleActive(li) {
     activeLi = activeLi === li ? null : li
   }
+  export let postLinksList = []
 </script>
 
 <style lang="scss">
@@ -40,20 +25,87 @@
     }
   }
 
-  ul ul {
-    padding-left: 20px;
+  ul.first-level {
+    padding-left: 15px;
+  }
+
+  ul.first-level > li {
+    margin-top: 10px;
+
+    position: relative;
+    font-family: Gabriolaa, serif;
+    font-size: 27px;
+    color: #000;
+    line-height: 33px;
+
+    &:before {
+      left: -18px;
+      top: 10px;
+      width: 10px;
+      height: 10px;
+
+      background: url('/dot.png');
+      content: ' ';
+      position: absolute;
+    }
+
+    &.opened {
+      color: #63372f !important;
+    }
+
+    &.opened > span:after {
+      transform: rotate(90deg);
+    }
+  }
+
+  ul.first-level > li > span {
+    display: block;
+    width: 100%;
+
+    &:before {
+    }
+
+    &:after {
+      display: block;
+      position: absolute;
+      right: -5px;
+      top: 0;
+      content: '\f054';
+      font-family: FontAwesome;
+      transition: all 0.2s linear;
+      font-size: 15px;
+    }
+  }
+
+  ul.second-level > li {
+    margin-bottom: 10px;
+
+    line-height: 23px;
+
+    &:before {
+      content: '-';
+      display: inline;
+      padding-right: 5px;
+    }
+
+    a {
+      font-size: 22px;
+      text-decoration: none;
+    }
   }
 </style>
 
-<ul>
-  {#each data as li}
-    <li>
+<ul class="first-level" itemscope itemtype="http://schema.org/SiteNavigationElement">
+  {#each postLinksList as li}
+    <li class={activeLi === li ? 'opened' : ''}>
       <span on:click={() => toggleActive(li)}>{li.name}</span>
       {#if li.items && li.items.length > 0}
         <DisplayIf display={activeLi === li}>
-          <ul>
+          <ul class="second-level">
             {#each li.items as subLi}
-              <li>{subLi.name}</li>
+              <li>
+                <a href={subLi.link} itemprop="url">{subLi.name}</a>
+              </li>
             {/each}
           </ul>
         </DisplayIf>

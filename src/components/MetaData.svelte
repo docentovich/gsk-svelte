@@ -1,10 +1,11 @@
 <script>
-  import { siteData } from '../routes/_layout.svelte'
+  import { globalData } from '../store'
+
   export let title
   export let description
 </script>
 
 <svelte:head>
-  <title>{siteData.metaData.name} | {title}</title>
+  <title>{$globalData.name} | {title}</title>
   <meta name="description" content={description} />
 </svelte:head>

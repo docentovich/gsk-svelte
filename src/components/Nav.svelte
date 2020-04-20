@@ -1,18 +1,11 @@
 <script>
-  function genLi(name, link = null) {
-    link = link || name
-    return { name, link }
-  }
-  export const list = [
-    genLi('Проекты по разделам и назначению', '/'),
-    genLi('Проекты капитального ремонта', 'about'),
-    genLi('Проекты', 'else'),
-  ]
   export let segment
+  export let navList = []
   segment = segment || '/'
 </script>
 
 <style lang="scss">
+  @import 'varibales';
   nav {
     min-height: auto;
     border-bottom: 5px solid #9c7e79;
@@ -31,6 +24,7 @@
     display: flex;
     justify-content: center;
     align-items: flex-end;
+    flex-wrap: wrap;
   }
 
   li {
@@ -60,17 +54,24 @@
       box-shadow: 0 0 5px rgba(225, 219, 201, 0.75);
       background-image: linear-gradient(to bottom, #4f2b25 0, #9b7d79 100%);
     }
+
+    @media (max-width: $first-break-point) {
+      border-radius: 15px;
+      margin-bottom: 10px;
+      display: block;
+    }
   }
 </style>
 
-<nav>
+<nav itemscope itemtype="http://schema.org/SiteNavigationElement">
   <ul class="container">
-    {#each list as navItem}
+    {#each navList as navItem}
       <li>
         <a
-            aria-current={segment === navItem.link ? 'page' : undefined}
-            href={navItem.link}>
-          {navItem.name}
+          itemprop="url"
+          aria-current={segment === navItem.link ? 'page' : undefined}
+          href={navItem.link}>
+          <span itemprop="name">{navItem.name}</span>
         </a>
       </li>
     {/each}
