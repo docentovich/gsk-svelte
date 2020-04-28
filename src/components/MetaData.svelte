@@ -6,6 +6,6 @@
 </script>
 
 <svelte:head>
-  <title>{$globalData.name} | {title}</title>
+  <title>{title}</title>
   <meta name="description" content={description} />
 </svelte:head>

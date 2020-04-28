@@ -1,4 +1,5 @@
 <script>
+  import { types } from '../helpers/types'
   export let segment
   export let navList = []
   segment = segment || '/'
@@ -70,8 +71,8 @@
         <a
           itemprop="url"
           aria-current={segment === navItem.link ? 'page' : undefined}
-          href={navItem.link}>
-          <span itemprop="name">{navItem.name}</span>
+          href={`${types[navItem.type]}/${navItem.slug}`}>
+          <span itemprop="name">{navItem.title}</span>
         </a>
       </li>
     {/each}

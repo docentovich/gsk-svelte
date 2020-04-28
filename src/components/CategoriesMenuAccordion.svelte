@@ -1,11 +1,12 @@
 <script>
   import DisplayIf from './DisplayIf.svelte'
-  let activeLi = null
+  import { types } from '../helpers/types'
+  let activeCategory = null
 
-  function toggleActive(li) {
-    activeLi = activeLi === li ? null : li
+  function toggleActive(category) {
+    activeCategory = activeCategory === category ? null : category
   }
-  export let postLinksList = []
+  export let categoriesMenu = []
 </script>
 
 <style lang="scss">
@@ -95,16 +96,19 @@
   }
 </style>
 
-<ul class="first-level" itemscope itemtype="http://schema.org/SiteNavigationElement">
-  {#each postLinksList as li}
-    <li class={activeLi === li ? 'opened' : ''}>
-      <span on:click={() => toggleActive(li)}>{li.name}</span>
-      {#if li.items && li.items.length > 0}
-        <DisplayIf display={activeLi === li}>
+<ul
+  class="first-level"
+  itemscope
+  itemtype="http://schema.org/SiteNavigationElement">
+  {#each categoriesMenu as category}
+    <li class={activeCategory === category ? 'opened' : ''}>
+      <span on:click={() => toggleActive(category)}>{category.title}</span>
+      {#if category.child_items && category.child_items.length > 0}
+        <DisplayIf display={activeCategory === category}>
           <ul class="second-level">
-            {#each li.items as subLi}
+            {#each category.child_items as post}
               <li>
-                <a href={subLi.link} itemprop="url">{subLi.name}</a>
+                <a href={`${types[post.type]}/${post.slug}`} itemprop="url">{post.title}</a>
               </li>
             {/each}
           </ul>

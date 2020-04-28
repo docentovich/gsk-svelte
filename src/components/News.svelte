@@ -1,10 +1,18 @@
 <script>
+  Date.prototype.toCustom = function() {
+    let day = new Date().getDay()
+    day = day < 10 ? `0${day}` : day
+    let month = new Date().getMonth()
+    month = month < 10 ? `0${month}` : month
+    const year = new Date().getFullYear()
+    return `${year}-${month}-${month}`
+  }
   import Article from './Article.svelte'
   export let news = []
 </script>
 
 <style lang="scss">
-  @import "varibales";
+  @import 'varibales';
   a:hover {
     color: #23527c;
     text-decoration: underline;
@@ -70,11 +78,15 @@
         <img
           itemprop="image"
           class="image"
-          src={singleNews.imgSrc ? singleNews.imgSrc : '/noimg.jpg'}
+          src={singleNews.image.guid ? singleNews.image.guid : '/noimg.jpg'}
           alt={singleNews.title} />
         <div class="content">
-          <a href={singleNews.link} itemprop="name">{singleNews.title}</a>
-          <span itemprop="description">{singleNews.description}</span>
+          <a href={singleNews.link} itemprop="name">
+            {singleNews.title.rendered}
+          </a>
+          {#if singleNews.short_desc}
+            <span itemprop="description">{singleNews.short_desc}</span>
+          {/if}
         </div>
       </div>
 
@@ -83,13 +95,15 @@
           itemprop="datePublished"
           content={new Date(singleNews.date).toISOString()}>
           <i class="fa fa-file-text-o" />
-          {singleNews.date}
+          {new Date(singleNews.date).toCustom()}
         </time>
 
-        <div class="looks">
-          <i class="fa fa-eye" />
-          {singleNews.looks}
-        </div>
+        {#if singleNews.custom_fields.watch_counter}
+          <div class="looks">
+            <i class="fa fa-eye" />
+            {singleNews.custom_fields.watch_counter}
+          </div>
+        {/if}
 
         <div class="more">
           <a href={singleNews.link} itemprop="url">Подробнее</a>

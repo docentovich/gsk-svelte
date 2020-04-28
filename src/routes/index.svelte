@@ -9,7 +9,7 @@
 </script>
 
 <script>
-  import PostLinksMain from '../components/PostLinksMain.svelte'
+  import CategoriesMenuMain from '../components/CategoriesMenuMain.svelte'
   import MetaData from '../components/MetaData.svelte'
   import { globalData } from '../store'
   import Article from '../components/Article.svelte'
@@ -66,7 +66,7 @@
   }
 </style>
 
-<MetaData title="Главная" description="Описание главной" />
+<MetaData title="{page.yoast_title}" description="{page.yoast_meta[0].content}" />
 
 <Article>
   <h1 slot="header">Проектная организация ГСК-СТРОЙ:</h1>
@@ -99,7 +99,7 @@
 
   <div class="wrapper">
     <article>
-      <PostLinksMain postLinksList={$globalData.postLinksList} />
+      <CategoriesMenuMain categoriesMenu={$globalData.categoriesMenu.items} />
     </article>
   </div>
 

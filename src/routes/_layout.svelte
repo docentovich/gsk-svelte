@@ -1,85 +1,31 @@
 <script context="module">
-  export const aaa = { data: 'start' }
-  /** data mocks */
-  function genLi(name, link = null) {
-    link = link || name
-    return { name, link }
-  }
-  const _navList = {
-    json: () => [
-      genLi('Проекты по разделам и назначению', '/'),
-      genLi('Проекты капитального ремонта', 'about'),
-      genLi('Проекты', 'else'),
-    ],
-  }
-
-  function mockPostLinksListData(index) {
-    return {
-      name: `Проекты по разделам и назначению`,
-      items: [
-        { name: `Архитектурное проектирование`, link: 'http://ya.ru' },
-        { name: `Архитектурно градостроительный облик`, link: 'http://ya.ru' },
-        { name: `lorem ${index * 10 + 3}`, link: 'http://ya.ru' },
-        { name: `lorem ${index * 10 + 4}`, link: 'http://ya.ru' },
-        { name: `lorem ${index * 10 + 5}`, link: 'http://ya.ru' },
-      ],
-    }
-  }
-  const _postLinksList = {
-    json: () => [
-      mockPostLinksListData(1),
-      mockPostLinksListData(2),
-      mockPostLinksListData(3),
-      mockPostLinksListData(5),
-    ],
-  }
-
-  const _news = {
-    json: () => [
-      createNews(
-        'Узаконить индивидуальное жилое строение через суд (ИЖС)',
-        'Узаконить индивидуальное жилое строение через суд (ИЖС)   Понятие незаконной постройки определяется в 222 статье ГК РФ.'
-      ),
-      createNews(
-        'заголовок',
-        'описание',
-        'https://dummyimage.com/70x60/000/fff'
-      ),
-    ],
-  }
-
-  function createNews(
-    title = 'title',
-    description = 'description',
-    imgSrc = null,
-    date = '2017-05-03',
-    looks = 555,
-    link = 'http://ya.ru'
-  ) {
-    return {
-      title,
-      description,
-      date,
-      looks,
-      link,
-      imgSrc,
-    }
-  }
-  /** --data mocks-- */
+  import { apiUrlV2 } from '../helpers/constants'
 
   export async function preload() {
-    const [{ name }, navList, postLinksList, news] = await Promise.all(
+    const menuAliases = {
+      categoriesMenu: 'categories-menu',
+      navMenu: 'nav-menu',
+    }
+    const [/*{ name }, */ navList, categoriesMenu, news] = await Promise.all(
       (
         await Promise.all([
-          this.fetch(process.env.SAPPER_APP_API_URL),
-          _navList,
-          _postLinksList,
-          _news,
+          // this.fetch(process.env.SAPPER_APP_API_URL),
+          this.fetch(
+            process.env.SAPPER_APP_API_URL +
+              'menus/v1/menus/' +
+              menuAliases.navMenu
+          ),
+          this.fetch(
+            process.env.SAPPER_APP_API_URL +
+              'menus/v1/menus/' +
+              menuAliases.categoriesMenu
+          ),
+          this.fetch(apiUrlV2 + '/news?per_page=2'),
         ])
       ).map(data => data.json())
     )
 
-    return { siteData: { name, navList, postLinksList, news } }
+    return { siteData: { /*name, */ navList, categoriesMenu, news } }
   }
 </script>
 
@@ -113,10 +59,12 @@
   }
 </style>
 
-<Header {segment} navList={$globalData.navList} />
+<Header {segment} navList={$globalData.navList && $globalData.navList.items} />
 
 <div class="content container">
-  <Aside postLinksList={$globalData.postLinksList} news={$globalData.news} />
+  <Aside
+    categoriesMenu={$globalData.categoriesMenu && $globalData.categoriesMenu.items}
+    news={$globalData.news} />
 
   <main itemscope itemprop="mainContentOfPage">
     <slot />

@@ -1,9 +1,9 @@
 <script>
   import Widget from './Widget.svelte'
-  import PostLinksAccordion from './PostLinksAccordion.svelte'
+  import CategoriesMenuAccordion from './CategoriesMenuAccordion.svelte'
   import News from './News.svelte'
 
-  export let postLinksList
+  export let categoriesMenu = []
   export let news
   export let open = false
 </script>
@@ -38,6 +38,7 @@
   aside.mobile .mobile-wrapper {
     width: 360px;
     margin: 20px auto 40px auto;
+    padding-right: 56px;
   }
 
   .burger-button {
@@ -99,7 +100,7 @@
 
 <aside class="desktop">
   <Widget header="Меню сайта">
-    <PostLinksAccordion {postLinksList} />
+    <CategoriesMenuAccordion {categoriesMenu} />
   </Widget>
   {#if news && news.length > 0}
     <Widget header="Последние статьи">
@@ -118,7 +119,7 @@
 
 <aside class="mobile" class:open>
   <div class="mobile-wrapper">
-    <PostLinksAccordion {postLinksList} />
+    <CategoriesMenuAccordion {categoriesMenu} />
   </div>
   {#if news && news.length > 0}
     <div class="mobile-wrapper">

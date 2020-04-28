@@ -1,5 +1,6 @@
 <script>
-  export let postLinksList = []
+  import { types } from '../helpers/types'
+  export let categoriesMenu = []
 </script>
 
 <style lang="scss">
@@ -85,13 +86,15 @@
     class="first-level"
     itemscope
     itemtype="http://schema.org/SiteNavigationElement">
-    {#each postLinksList as postLinks}
+    {#each categoriesMenu as category}
       <li>
-        <span>{postLinks.name}</span>
+        <span>{category.title}</span>
         <ul class="second-level">
-          {#each postLinks.items as item}
+          {#each category.child_items as post}
             <li>
-              <a href={item.link} itemprop="url">{item.name}</a>
+              <a href={`${types[post.type]}/${post.slug}`} } itemprop="url">
+                {post.title}
+              </a>
             </li>
           {/each}
         </ul>
