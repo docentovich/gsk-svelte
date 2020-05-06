@@ -1,12 +1,4 @@
 <script>
-  Date.prototype.toCustom = function() {
-    let day = new Date().getDay()
-    day = day < 10 ? `0${day}` : day
-    let month = new Date().getMonth()
-    month = month < 10 ? `0${month}` : month
-    const year = new Date().getFullYear()
-    return `${year}-${month}-${month}`
-  }
   import Article from './Article.svelte'
   export let news = []
 </script>
@@ -81,7 +73,7 @@
           src={singleNews.image.guid ? singleNews.image.guid : '/noimg.jpg'}
           alt={singleNews.title} />
         <div class="content">
-          <a href={singleNews.link} itemprop="name">
+          <a rel='prefetch' href={'news/' + singleNews.slug} itemprop="name">
             {singleNews.title.rendered}
           </a>
           {#if singleNews.short_desc}
@@ -106,7 +98,7 @@
         {/if}
 
         <div class="more">
-          <a href={singleNews.link} itemprop="url">Подробнее</a>
+          <a rel='prefetch' href={'news/' + singleNews.slug} itemprop="url">Подробнее</a>
         </div>
       </div>
     </Article>

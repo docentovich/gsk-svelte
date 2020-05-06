@@ -1,15 +1,23 @@
 <script context="module">
   import { apiUrlV2 } from '../helpers/constants'
 
+  Date.prototype.toCustom = function() {
+    let day = new Date().getDay()
+    day = day < 10 ? `0${day}` : day
+    let month = new Date().getMonth()
+    month = month < 10 ? `0${month}` : month
+    const year = new Date().getFullYear()
+    return `${year}-${month}-${month}`
+  }
+
   export async function preload() {
     const menuAliases = {
       categoriesMenu: 'categories-menu',
       navMenu: 'nav-menu',
     }
-    const [/*{ name }, */ navList, categoriesMenu, news] = await Promise.all(
+    const [navList, categoriesMenu, news] = await Promise.all(
       (
         await Promise.all([
-          // this.fetch(process.env.SAPPER_APP_API_URL),
           this.fetch(
             process.env.SAPPER_APP_API_URL +
               'menus/v1/menus/' +
@@ -25,7 +33,7 @@
       ).map(data => data.json())
     )
 
-    return { siteData: { /*name, */ navList, categoriesMenu, news } }
+    return { siteData: { navList, categoriesMenu, news } }
   }
 </script>
 
