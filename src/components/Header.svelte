@@ -2,12 +2,12 @@
   import Nav from '../components/Nav.svelte'
   import SearchInput from './SearchInput.svelte'
 
-  export let segment
+  export let path
   export let navList
 </script>
 
 <style lang="scss">
-  @import "varibales";
+  @import 'varibales';
   header .container {
     box-sizing: border-box;
     display: flex;
@@ -128,28 +128,28 @@
 
 <header>
   <div
-      id="organization"
-      class="container"
-      itemprop="publisher"
-      itemscope
-      itemtype="http://schema.org/Organization"
-      itemref="address email">
+    id="organization"
+    class="container"
+    itemprop="publisher"
+    itemscope
+    itemtype="http://schema.org/Organization"
+    itemref="address email">
     <a
-        href="/"
-        id="logo"
-        itemprop="logo"
-        itemscope
-        itemtype="http://schema.org/ImageObject">
-      <img src="/logo.png" alt="Гор-строй комплекс. Строительная организация"/>
-      <meta itemprop="url" content="/logo.png"/>
-      <meta itemprop="width" content="400"/>
-      <meta itemprop="height" content="60"/>
+      href="/"
+      id="logo"
+      itemprop="logo"
+      itemscope
+      itemtype="http://schema.org/ImageObject">
+      <img src="/logo.png" alt="Гор-строй комплекс. Строительная организация" />
+      <meta itemprop="url" content="/logo.png" />
+      <meta itemprop="width" content="400" />
+      <meta itemprop="height" content="60" />
       <meta
-          itemprop="description"
-          content="Гор-строй комплекс. Строительная организация"/>
+        itemprop="description"
+        content="Гор-строй комплекс. Строительная организация" />
     </a>
 
-    <a class="slogan" href="/" itemprop="url">Проектирование и согласование</a>
+    <a class="slogan" href="." itemprop="url">Проектирование и согласование</a>
 
     <div class="right-panel">
       <a class="phone" href="tel:88126289395" itemprop="telephone">
@@ -157,12 +157,12 @@
       </a>
       <a class="contact-button" href="/contacts">Контакты</a>
       <div>
-        <SearchInput/>
+        <SearchInput />
       </div>
     </div>
 
-    <meta itemprop="name" content="Гор-строй комплекс"/>
+    <meta itemprop="name" content="Гор-строй комплекс" />
   </div>
 
-  <Nav {segment} {navList}/>
+  <Nav {path} {navList} />
 </header>

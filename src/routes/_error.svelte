@@ -1,4 +1,7 @@
 <script>
+	import MainInnerPage from "../components/MainInnerPage.svelte";
+	import MetaData from "../components/MetaData.svelte";
+
 	export let status;
 	export let error;
 
@@ -27,14 +30,15 @@
 	}
 </style>
 
-<svelte:head>
-	<title>{status}</title>
-</svelte:head>
 
-<h1>{status}</h1>
+<MetaData title={status} description='Error page' />
 
-<p>{error.message}</p>
+<MainInnerPage>
+	<h1>{status}</h1>
 
-{#if dev && error.stack}
-	<pre>{error.stack}</pre>
-{/if}
+	<p>{error.message}</p>
+
+	{#if dev && error.stack}
+		<pre>{error.stack}</pre>
+	{/if}
+</MainInnerPage>

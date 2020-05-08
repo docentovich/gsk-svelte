@@ -33,6 +33,9 @@
       ).map(data => data.json())
     )
 
+    console.log(navList)
+
+
     return { siteData: { navList, categoriesMenu, news } }
   }
 </script>
@@ -42,8 +45,10 @@
   import Header from '../components/Header.svelte'
   import { globalData } from '../store'
   import Aside from '../components/Aside.svelte'
+  import { stores } from '@sapper/app'
 
-  export let segment
+  const { page } = stores()
+
   export let siteData
   globalData.set(siteData)
 </script>
@@ -54,7 +59,7 @@
     display: flex;
   }
 
-  main {
+  :global(main) {
     padding-left: 30px;
 
     flex-grow: 1;
@@ -67,16 +72,16 @@
   }
 </style>
 
-<Header {segment} navList={$globalData.navList && $globalData.navList.items} />
+<Header
+  path={$page.path}
+  navList={$globalData.navList && $globalData.navList.items} />
 
 <div class="content container">
   <Aside
     categoriesMenu={$globalData.categoriesMenu && $globalData.categoriesMenu.items}
     news={$globalData.news} />
 
-  <main itemscope itemprop="mainContentOfPage">
-    <slot />
-  </main>
+  <slot />
 </div>
 
 <Footer />

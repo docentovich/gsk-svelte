@@ -18,7 +18,7 @@
 </script>
 
 <style lang="scss">
-  @import "varibales";
+  @import 'varibales';
   h1,
   h2 {
     width: auto;
@@ -66,49 +66,51 @@
   }
 </style>
 
-<MetaData title="{page.yoast_title}" description="{page.yoast_meta[0].content}" />
+<MetaData title={page.yoast_title} description={page.yoast_meta[0].content} />
 
-<Article>
-  <h1 slot="header">Проектная организация ГСК-СТРОЙ:</h1>
-  <p slot="description">
-    Наша проектная организация имеет большой опыт в сфере проектирования и
-    согласования как нового строительства, так и реконструкции существующих
-    зданий.
-  </p>
+<main itemscope itemprop="mainContentOfPage">
+  <Article>
+    <h1 slot="header">Проектная организация ГСК-СТРОЙ:</h1>
+    <p slot="description">
+      Наша проектная организация имеет большой опыт в сфере проектирования и
+      согласования как нового строительства, так и реконструкции существующих
+      зданий.
+    </p>
 
-  <div class="wrapper">
-    <Article>
-      <h2 slot="header">О преимуществах организации ГСК-СТРОЙ</h2>
-      <ul class="advantages">
-        <li>
-          Вы экономите время, поскольку проект и согласование мы делаем в сжатые
-          сроки!
-        </li>
-        <li>
-          Вы не переплатите за лишние разделы проектной документации и
-          согласования, поскольку к результату мы идем кратчайшим путем!
-        </li>
-        <li>
-          Вы можете быть уверены в положительном результате, потому что по все
-          объектам мы проводим предварительный анализ и необходимые консультации
-          в комитетах!
-        </li>
-      </ul>
-    </Article>
-  </div>
+    <div class="wrapper">
+      <Article>
+        <h2 slot="header">О преимуществах организации ГСК-СТРОЙ</h2>
+        <ul class="advantages">
+          <li>
+            Вы экономите время, поскольку проект и согласование мы делаем в
+            сжатые сроки!
+          </li>
+          <li>
+            Вы не переплатите за лишние разделы проектной документации и
+            согласования, поскольку к результату мы идем кратчайшим путем!
+          </li>
+          <li>
+            Вы можете быть уверены в положительном результате, потому что по все
+            объектам мы проводим предварительный анализ и необходимые
+            консультации в комитетах!
+          </li>
+        </ul>
+      </Article>
+    </div>
 
-  <div class="wrapper">
-    <article>
-      <CategoriesMenuMain categoriesMenu={$globalData.categoriesMenu.items} />
-    </article>
-  </div>
+    <div class="wrapper">
+      <article>
+        <CategoriesMenuMain categoriesMenu={$globalData.categoriesMenu.items} />
+      </article>
+    </div>
 
-  <div class="wrapper">
-    <Article>
-      <h2 slot="header">{page.title.rendered}</h2>
-      <div class="content">
-        {@html page.content.rendered}
-      </div>
-    </Article>
-  </div>
-</Article>
+    <div class="wrapper">
+      <Article>
+        <h2 slot="header">{page.title.rendered}</h2>
+        <div class="content">
+          {@html page.content.rendered}
+        </div>
+      </Article>
+    </div>
+  </Article>
+</main>

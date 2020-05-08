@@ -3,9 +3,10 @@
   import CategoriesMenuAccordion from './CategoriesMenuAccordion.svelte'
   import News from './News.svelte'
 
+  export let _open = false
+
   export let categoriesMenu = []
   export let news
-  export let open = false
 </script>
 
 <style lang="scss">
@@ -109,7 +110,7 @@
   {/if}
 </aside>
 
-<button class="burger-button" class:open on:click={() => (open = !open)}>
+<button class="burger-button" class:open={_open} on:click={() => (_open = !_open)}>
   <svg width="32" height="24">
     <line id="top" x1="0" y1="2" x2="32" y2="2" />
     <line id="middle" x1="0" y1="12" x2="24" y2="12" />
@@ -117,7 +118,7 @@
   </svg>
 </button>
 
-<aside class="mobile" class:open>
+<aside class="mobile" class:open={_open}>
   <div class="mobile-wrapper">
     <CategoriesMenuAccordion {categoriesMenu} />
   </div>

@@ -1,8 +1,8 @@
 <script>
-  import { types } from '../helpers/types'
-  export let segment
+  import { contentTypeToFrontUrl } from '../helpers/types_urls'
+
+  export let path
   export let navList = []
-  segment = segment || '/'
 </script>
 
 <style lang="scss">
@@ -50,6 +50,7 @@
     box-sizing: border-box;
     line-height: 17px;
 
+    &[aria-current='page'],
     &:hover {
       color: #fff;
       box-shadow: 0 0 5px rgba(225, 219, 201, 0.75);
@@ -70,8 +71,8 @@
       <li>
         <a
           itemprop="url"
-          aria-current={segment === navItem.link ? 'page' : undefined}
-          href={`${types[navItem.type]}/${navItem.slug}`}>
+          aria-current={path === contentTypeToFrontUrl(navItem) ? 'page' : undefined}
+          href={contentTypeToFrontUrl(navItem)}>
           <span itemprop="name">{navItem.title}</span>
         </a>
       </li>

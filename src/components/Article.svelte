@@ -1,6 +1,6 @@
 <script>
-  let slots = $$props.$$slots
-  slots = slots || { fromSSR: true }
+  let _slots = $$props.$$slots
+  _slots = _slots || { fromSSR: true }
 </script>
 
 <article
@@ -9,13 +9,13 @@
   itemtype="http://schema.org/Article"
   itemref="organization author">
 
-  {#if slots.fromSSR || slots.header}
+  {#if _slots.fromSSR || _slots.header}
     <header itemprop="name headline">
       <slot name="header" />
     </header>
   {/if}
 
-  {#if slots.fromSSR || slots.description}
+  {#if _slots.fromSSR || _slots.description}
     <div itemprop="description">
       <slot name="description" />
     </div>
@@ -25,7 +25,7 @@
     <slot />
   </div>
 
-  {#if slots.fromSSR || slots.footer}
+  {#if _slots.fromSSR || _slots.footer}
     <footer>
       <slot name="footer" />
     </footer>

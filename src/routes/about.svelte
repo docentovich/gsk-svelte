@@ -1,5 +1,5 @@
 <script>
-  import MetaData from "../components/MetaData.svelte";
+  import MetaData from '../components/MetaData.svelte'
 </script>
 
 <MetaData title="about" description="Описание about" />

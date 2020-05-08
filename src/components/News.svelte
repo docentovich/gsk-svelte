@@ -1,5 +1,7 @@
 <script>
   import Article from './Article.svelte'
+  import { contentTypeToFrontUrl } from '../helpers/types_urls'
+
   export let news = []
 </script>
 
@@ -73,7 +75,10 @@
           src={singleNews.image.guid ? singleNews.image.guid : '/noimg.jpg'}
           alt={singleNews.title} />
         <div class="content">
-          <a rel='prefetch' href={'news/' + singleNews.slug} itemprop="name">
+          <a
+            rel="prefetch"
+            href={contentTypeToFrontUrl(singleNews)}
+            itemprop="name">
             {singleNews.title.rendered}
           </a>
           {#if singleNews.short_desc}
@@ -98,7 +103,9 @@
         {/if}
 
         <div class="more">
-          <a rel='prefetch' href={'news/' + singleNews.slug} itemprop="url">Подробнее</a>
+          <a rel="prefetch" href={'news/' + singleNews.slug} itemprop="url">
+            Подробнее
+          </a>
         </div>
       </div>
     </Article>

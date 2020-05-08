@@ -1,5 +1,6 @@
 <script>
-  import { types } from '../helpers/types'
+  import { contentTypeToFrontUrl } from '../helpers/types_urls'
+
   export let categoriesMenu = []
 </script>
 
@@ -92,7 +93,9 @@
         <ul class="second-level">
           {#each category.child_items as post}
             <li>
-              <a href={`${types[post.type]}/${post.slug}`} } itemprop="url">
+              <a
+                href={contentTypeToFrontUrl(post)}
+                itemprop="url">
                 {post.title}
               </a>
             </li>

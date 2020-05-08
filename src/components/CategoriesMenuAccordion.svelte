@@ -1,12 +1,16 @@
 <script>
   import DisplayIf from './DisplayIf.svelte'
-  import { types } from '../helpers/types'
-  let activeCategory = null
+  import { contentTypeToFrontUrl } from '../helpers/types_urls'
 
-  function toggleActive(category) {
-    activeCategory = activeCategory === category ? null : category
+
+  let _activeCategory = null
+
+  function _toggleActive(category) {
+    _activeCategory = _activeCategory === category ? null : category
   }
+
   export let categoriesMenu = []
+  export let path
 </script>
 
 <style lang="scss">
@@ -101,14 +105,19 @@
   itemscope
   itemtype="http://schema.org/SiteNavigationElement">
   {#each categoriesMenu as category}
-    <li class={activeCategory === category ? 'opened' : ''}>
-      <span on:click={() => toggleActive(category)}>{category.title}</span>
+    <li class={_activeCategory === category ? 'opened' : ''}>
+      <span on:click={() => _toggleActive(category)}>{category.title}</span>
       {#if category.child_items && category.child_items.length > 0}
-        <DisplayIf display={activeCategory === category}>
+        <DisplayIf display={_activeCategory === category}>
           <ul class="second-level">
             {#each category.child_items as post}
               <li>
-                <a href={`${types[post.type]}/${post.slug}`} itemprop="url">{post.title}</a>
+                <a
+                  aria-current={path === contentTypeToFrontUrl(post) ? 'page' : undefined}
+                  href={contentTypeToFrontUrl(post)}
+                  itemprop="url">
+                  {post.title}
+                </a>
               </li>
             {/each}
           </ul>
