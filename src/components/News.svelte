@@ -103,7 +103,7 @@
         {/if}
 
         <div class="more">
-          <a rel="prefetch" href={'news/' + singleNews.slug} itemprop="url">
+          <a rel="prefetch" href={contentTypeToFrontUrl(singleNews)} itemprop="url">
             Подробнее
           </a>
         </div>

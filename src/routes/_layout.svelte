@@ -10,11 +10,17 @@
     return `${year}-${month}-${month}`
   }
 
-  export async function preload() {
+  export async function preload(page) {
     const menuAliases = {
-      categoriesMenu: 'categories-menu',
-      navMenu: 'nav-menu',
+      categoriesMenu: 5, //'categories-menu',
+      navMenu: 4, //'nav-menu',
     }
+    const { path } = page
+
+    if (path.endsWith('/') && path.length > 1) {
+      this.redirect(301, encodeURI(path.slice(0, -1)))
+    }
+
     const [navList, categoriesMenu, news] = await Promise.all(
       (
         await Promise.all([
@@ -32,9 +38,6 @@
         ])
       ).map(data => data.json())
     )
-
-    console.log(navList)
-
 
     return { siteData: { navList, categoriesMenu, news } }
   }

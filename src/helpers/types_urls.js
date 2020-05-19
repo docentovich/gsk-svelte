@@ -1,6 +1,6 @@
 const types_urls = {
-  post: '/posts/',
-  news: '/news/',
+  post: '/',
+  news: '/',
   page: '/',
   custom: '',
 }

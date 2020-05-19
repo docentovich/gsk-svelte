@@ -1,10 +1,10 @@
 <script context="module">
-  import { apiUrlV2 } from '../../helpers/constants'
+  import { apiUrlV2 } from '../helpers/constants'
 
   export async function preload(page, session) {
-    const { type, slug } = page.params
+    const { slug } = page.params
     const content = await (
-      await this.fetch(`${apiUrlV2}/custom_routes/${type}/${slug}`)
+      await this.fetch(`${apiUrlV2}/custom_routes/${slug}`)
     ).json()
 
     return { content }
@@ -12,8 +12,8 @@
 </script>
 
 <script>
-  import MainInnerPage from '../../components/MainInnerPage.svelte'
-  import MetaData from '../../components/MetaData.svelte'
+  import MainInnerPage from '../components/MainInnerPage.svelte'
+  import MetaData from '../components/MetaData.svelte'
 
   export let content
 </script>
