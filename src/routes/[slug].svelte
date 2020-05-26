@@ -4,7 +4,7 @@
   export async function preload(page, session) {
     const { slug } = page.params
     const content = await (
-      await this.fetch(`${apiUrlV2}/custom_routes/${slug}`)
+      await this.fetch(`${apiUrlV2}/custom_routes/slug/${slug}`)
     ).json()
 
     return { content }

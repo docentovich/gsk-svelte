@@ -70,6 +70,7 @@
     {#each navList as navItem}
       <li>
         <a
+          rel="prefetch"
           itemprop="url"
           aria-current={path === contentTypeToFrontUrl(navItem) ? 'page' : undefined}
           href={contentTypeToFrontUrl(navItem)}>

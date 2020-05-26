@@ -95,6 +95,7 @@
             <li>
               <a
                 href={contentTypeToFrontUrl(post)}
+                rel=prefetch
                 itemprop="url">
                 {post.title}
               </a>

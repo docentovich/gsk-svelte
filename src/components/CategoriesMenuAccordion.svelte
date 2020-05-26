@@ -126,6 +126,7 @@
                 <a
                   aria-current={path === contentTypeToFrontUrl(post) ? 'page' : undefined}
                   href={contentTypeToFrontUrl(post)}
+                  rel=prefetch
                   itemprop="url">
                   {post.title}
                 </a>
