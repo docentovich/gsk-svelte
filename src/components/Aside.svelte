@@ -7,6 +7,7 @@
 
   export let categoriesMenu = []
   export let news
+  export let path
 </script>
 
 <style lang="scss">
@@ -101,7 +102,7 @@
 
 <aside class="desktop">
   <Widget header="Меню сайта">
-    <CategoriesMenuAccordion {categoriesMenu} />
+    <CategoriesMenuAccordion {categoriesMenu} {path} />
   </Widget>
   {#if news && news.length > 0}
     <Widget header="Последние статьи">
@@ -120,7 +121,7 @@
 
 <aside class="mobile" class:open={_open}>
   <div class="mobile-wrapper">
-    <CategoriesMenuAccordion {categoriesMenu} />
+    <CategoriesMenuAccordion {categoriesMenu} {path} />
   </div>
   {#if news && news.length > 0}
     <div class="mobile-wrapper">

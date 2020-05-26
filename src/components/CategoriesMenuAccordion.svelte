@@ -2,7 +2,6 @@
   import DisplayIf from './DisplayIf.svelte'
   import { contentTypeToFrontUrl } from '../helpers/types_urls'
 
-
   let _activeCategory = null
 
   function _toggleActive(category) {
@@ -11,6 +10,13 @@
 
   export let categoriesMenu = []
   export let path
+
+  export function isCategoryActive(category, _path, _activeCategory) {
+    return (
+      _activeCategory === category ||
+      category.child_items.some(post => _path === contentTypeToFrontUrl(post))
+    )
+  }
 </script>
 
 <style lang="scss">
@@ -96,6 +102,10 @@
     a {
       font-size: 22px;
       text-decoration: none;
+
+      &[aria-current='page'] {
+        border-bottom: 1px dashed #63372f;
+      }
     }
   }
 </style>
@@ -105,10 +115,11 @@
   itemscope
   itemtype="http://schema.org/SiteNavigationElement">
   {#each categoriesMenu as category}
-    <li class={_activeCategory === category ? 'opened' : ''}>
+    <li
+      class={isCategoryActive(category, path, _activeCategory) ? 'opened' : ''}>
       <span on:click={() => _toggleActive(category)}>{category.title}</span>
       {#if category.child_items && category.child_items.length > 0}
-        <DisplayIf display={_activeCategory === category}>
+        <DisplayIf display={isCategoryActive(category, path, _activeCategory)}>
           <ul class="second-level">
             {#each category.child_items as post}
               <li>

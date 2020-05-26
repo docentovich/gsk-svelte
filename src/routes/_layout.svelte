@@ -81,6 +81,7 @@
 
 <div class="content container">
   <Aside
+    path={$page.path}
     categoriesMenu={$globalData.categoriesMenu && $globalData.categoriesMenu.items}
     news={$globalData.news} />
 
