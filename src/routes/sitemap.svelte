@@ -18,6 +18,27 @@
   export let sitemap
 </script>
 
+<style>
+  ul {
+    display: block;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  ul li {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+  }
+
+  ul li a {
+    color: #337ab7;
+    font-size: 12px;
+    text-decoration: none;
+  }
+</style>
+
 <MetaData title="Карта сайта" description="Карта сайта" />
 
 <main itemscope itemprop="mainContentOfPage">
@@ -29,7 +50,7 @@
         {#each sitemap as link}
           <li>
             <a rel="prefetch" href={contentTypeToFrontUrl(link)} itemprop="url">
-              {link.slug}
+              {link.post_title}
             </a>
           </li>
         {/each}
