@@ -4,7 +4,7 @@
   const { page } = stores()
 
   function handleSubmit(event) {
-    goto(`/search?q=${event.target.search.value}`)
+    goto(`/search/1?key_word=${event.target.search.value}`)
   }
 </script>
 
@@ -47,7 +47,7 @@
       name="search"
       id="search"
       placeholder="Поиск"
-      value={($page.query.q) ? $page.query.q : ''}
+      value={($page.query['key_word']) ? $page.query['key_word'] : ''}
        />
   </form>
 </div>
