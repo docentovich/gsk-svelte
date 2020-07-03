@@ -155,7 +155,7 @@
       <a class="phone" href="tel:88126289395" itemprop="telephone">
         (812) 628-93-95
       </a>
-      <a class="contact-button" href="/contacts">Контакты</a>
+      <a class="contact-button" href="/contacts" rel="prefetch">Контакты</a>
       <div>
         <SearchInput />
       </div>
