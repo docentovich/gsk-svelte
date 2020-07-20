@@ -23,5 +23,6 @@
   description={content.yoast_meta[0].content} />
 
 <MainInnerPage>
+  <h1>{content.title.rendered}</h1>
   {@html content.content.rendered}
 </MainInnerPage>

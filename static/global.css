@@ -78,3 +78,22 @@ body {
   padding: 0 15px;
   margin: auto;
 }
+
+
+.wp-block-quote {
+  border-color: #cd2653;
+  border-style: solid;
+  border-width: 0 0 0 2px;
+  margin: 20px 0;
+  padding: 5px 0 5px 20px;
+}
+
+.has-text-align-center {
+  text-align: center;
+}
+.has-text-align-right {
+  text-align: right;
+}
+.has-text-align-left {
+  text-align: left;
+}

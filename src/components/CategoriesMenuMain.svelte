@@ -22,7 +22,7 @@
   ul.first-level {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
     color: $brown-font-color;
 
     & > li {
