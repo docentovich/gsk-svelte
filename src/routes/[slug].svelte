@@ -1,10 +1,8 @@
 <script context="module">
-  import { apiUrlV2 } from '../helpers/constants'
-
   export async function preload(page, session) {
     const { slug } = page.params
     const content = await (
-      await this.fetch(`${apiUrlV2}/custom_routes/slug/${slug}`)
+      await this.fetch(`/api/wp/v2/custom_routes/slug/${slug}`)
     ).json()
 
     return { content }

@@ -1,1 +1,0 @@
-export const apiUrlV2 = process.env.SAPPER_APP_API_URL + process.env.SAPPER_APP_WP_API_V2;

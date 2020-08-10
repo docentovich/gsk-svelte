@@ -1,6 +1,5 @@
 <script context="module">
   import { goto } from '@sapper/app'
-  import { apiUrlV2 } from '../../helpers/constants'
 
   function generatePagination(limit, total) {
     return Array.from(Array(Math.ceil(total / limit)), (_, i) => ++i)
@@ -12,7 +11,7 @@
     const currentPage = +(params['page'] || 1)
     const content = await (
       await this.fetch(
-        `${apiUrlV2}/custom_routes/search?key_word=${keyWord}&page=${currentPage}&limit=${limit}`
+        `/api/custom_routes/search?key_word=${keyWord}&page=${currentPage}&limit=${limit}`
       )
     ).json()
 

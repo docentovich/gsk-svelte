@@ -1,6 +1,4 @@
 <script context="module">
-  import { apiUrlV2 } from '../helpers/constants'
-
   Date.prototype.toCustom = function() {
     let day = new Date().getDay()
     day = day < 10 ? `0${day}` : day
@@ -25,16 +23,14 @@
       (
         await Promise.all([
           this.fetch(
-            process.env.SAPPER_APP_API_URL +
-              'menus/v1/menus/' +
+              '/api/menus/v1/menus/' +
               menuAliases.navMenu
           ),
           this.fetch(
-            process.env.SAPPER_APP_API_URL +
-              'menus/v1/menus/' +
+              '/api/menus/v1/menus/' +
               menuAliases.categoriesMenu
           ),
-          this.fetch(apiUrlV2 + '/news?per_page=2'),
+          this.fetch('/api/wp/v2/news?per_page=2'),
         ])
       ).map(data => data.json())
     )
