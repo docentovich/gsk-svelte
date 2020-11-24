@@ -125,7 +125,7 @@
 
 <aside class="mobile" class:open={_open}>
   <div class="mobile-wrapper">
-    <CategoriesMenuAccordion {categoriesMenu} {path} />
+    <CategoriesMenuAccordion on:linkClick={() => toggleMobileOpen()} {categoriesMenu} {path} />
   </div>
   {#if posts && posts.length > 0}
     <div class="mobile-wrapper">

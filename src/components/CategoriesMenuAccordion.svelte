@@ -1,6 +1,9 @@
 <script>
   import DisplayIf from './DisplayIf.svelte'
   import { contentTypeToFrontUrl } from '../helpers/types_urls'
+  import { createEventDispatcher } from 'svelte';
+
+  export const dispatch = createEventDispatcher();
 
   export let categoriesMenu = []
   export let path
@@ -136,6 +139,7 @@
                   aria-current={path === contentTypeToFrontUrl(post) ? 'page' : undefined}
                   href={contentTypeToFrontUrl(post)}
                   rel="prefetch"
+                  on:click={() => dispatch('linkClick')}
                   itemprop="url">
                   {post.title}
                 </a>
