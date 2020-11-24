@@ -1,13 +1,17 @@
 <script>
   import Widget from './Widget.svelte'
   import CategoriesMenuAccordion from './CategoriesMenuAccordion.svelte'
-  import News from './News.svelte'
+  import Posts from './Posts.svelte'
 
   export let _open = false
 
   export let categoriesMenu = []
-  export let news
+  export let posts
   export let path
+  export function toggleMobileOpen() {
+    _open = !_open
+    document.body.classList.toggle('open-mobile-menu');
+  }
 </script>
 
 <style lang="scss">
@@ -104,14 +108,14 @@
   <Widget header="Меню сайта">
     <CategoriesMenuAccordion {categoriesMenu} {path} />
   </Widget>
-  {#if news && news.length > 0}
+  {#if posts && posts.length > 0}
     <Widget header="Последние статьи">
-      <News {news} />
+      <Posts {posts} />
     </Widget>
   {/if}
 </aside>
 
-<button class="burger-button" class:open={_open} on:click={() => (_open = !_open)}>
+<button class="burger-button" class:open={_open} on:click={() => toggleMobileOpen()}>
   <svg width="32" height="24">
     <line id="top" x1="0" y1="2" x2="32" y2="2" />
     <line id="middle" x1="0" y1="12" x2="24" y2="12" />
@@ -123,9 +127,9 @@
   <div class="mobile-wrapper">
     <CategoriesMenuAccordion {categoriesMenu} {path} />
   </div>
-  {#if news && news.length > 0}
+  {#if posts && posts.length > 0}
     <div class="mobile-wrapper">
-      <News {news} />
+      <Posts {posts} />
     </div>
   {/if}
 </aside>

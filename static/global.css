@@ -61,6 +61,13 @@ code {
   }
 }
 
+@media (max-width: 768px) {
+  body.open-mobile-menu {
+    max-height: 100vh;
+    overflow: hidden;
+  }
+}
+
 html,
 body,
 #sapper,

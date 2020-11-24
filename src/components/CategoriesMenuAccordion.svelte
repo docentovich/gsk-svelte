@@ -2,20 +2,30 @@
   import DisplayIf from './DisplayIf.svelte'
   import { contentTypeToFrontUrl } from '../helpers/types_urls'
 
-  let _activeCategory = null
-
-  function _toggleActive(category) {
-    _activeCategory = _activeCategory === category ? null : category
-  }
-
   export let categoriesMenu = []
   export let path
 
-  export function isCategoryActive(category, _path, _activeCategory) {
-    return (
-      _activeCategory === category ||
-      category.child_items.some(post => _path === contentTypeToFrontUrl(post))
-    )
+  let _openedCategory = null
+
+  function toggleActive(category) {
+    _openedCategory = _openedCategory === category ? null : category
+  }
+
+  const itemsRelated = categoriesMenu.reduce(
+    (acc, category) =>
+      acc.concat(
+        category.child_items.map(item => ({
+          ...item,
+          category,
+        }))
+      ),
+    []
+  )
+
+  $: {
+    _openedCategory = (
+      itemsRelated.find(item => path === contentTypeToFrontUrl(item)) || {}
+    ).category
   }
 </script>
 
@@ -115,18 +125,17 @@
   itemscope
   itemtype="http://schema.org/SiteNavigationElement">
   {#each categoriesMenu as category}
-    <li
-      class={isCategoryActive(category, path, _activeCategory) ? 'opened' : ''}>
-      <span on:click={() => _toggleActive(category)}>{category.title}</span>
+    <li class={_openedCategory === category ? 'opened' : ''}>
+      <span on:click={() => toggleActive(category)}>{category.title}</span>
       {#if category.child_items && category.child_items.length > 0}
-        <DisplayIf display={isCategoryActive(category, path, _activeCategory)}>
+        <DisplayIf display={_openedCategory === category}>
           <ul class="second-level">
             {#each category.child_items as post}
               <li>
                 <a
                   aria-current={path === contentTypeToFrontUrl(post) ? 'page' : undefined}
                   href={contentTypeToFrontUrl(post)}
-                  rel=prefetch
+                  rel="prefetch"
                   itemprop="url">
                   {post.title}
                 </a>

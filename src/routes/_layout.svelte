@@ -1,17 +1,17 @@
 <script context="module">
   Date.prototype.toCustom = function() {
-    let day = new Date().getDay()
+    let day = this.getDate()
     day = day < 10 ? `0${day}` : day
-    let month = new Date().getMonth()
+    let month = this.getMonth() + 1
     month = month < 10 ? `0${month}` : month
-    const year = new Date().getFullYear()
-    return `${year}-${month}-${month}`
+    const year = this.getFullYear()
+    return `${year}-${month}-${day}`
   }
 
   export async function preload(page) {
     const menuAliases = {
-      categoriesMenu: 5, //'categories-menu',
-      navMenu: 4, //'nav-menu',
+      mainMenu: 47, //'categories-menu',
+      navMenu: 48, //'nav-menu',
     }
     const { path } = page
 
@@ -19,7 +19,7 @@
       this.redirect(301, encodeURI(path.slice(0, -1)))
     }
 
-    const [navList, categoriesMenu, news] = await Promise.all(
+    let [navList, categoriesMenu, posts] = await Promise.all(
       (
         await Promise.all([
           this.fetch(
@@ -28,14 +28,16 @@
           ),
           this.fetch(
               '/api/menus/v1/menus/' +
-              menuAliases.categoriesMenu
+              menuAliases.mainMenu
           ),
-          this.fetch('/api/wp/v2/news?per_page=2'),
+          this.fetch('/api/wp/v2/custom_routes/all_posts?per_page=2'),
         ])
       ).map(data => data.json())
     )
 
-    return { siteData: { navList, categoriesMenu, news } }
+    posts = (posts || {}).values || [];
+
+    return { siteData: { navList, categoriesMenu, posts } }
   }
 </script>
 
@@ -79,7 +81,7 @@
   <Aside
     path={$page.path}
     categoriesMenu={$globalData.categoriesMenu && $globalData.categoriesMenu.items}
-    news={$globalData.news} />
+    posts={$globalData.posts} />
 
   <slot />
 </div>

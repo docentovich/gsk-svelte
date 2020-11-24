@@ -2,7 +2,7 @@
   import Article from './Article.svelte'
   import { contentTypeToFrontUrl } from '../helpers/types_urls'
 
-  export let news = []
+  export let posts = []
 </script>
 
 <style lang="scss">
@@ -12,11 +12,11 @@
     text-decoration: underline;
   }
 
-  .news-wrapper {
+  .all-posts-wrapper {
     position: relative;
   }
 
-  .news-wrapper:not(:first-of-type) {
+  .all-posts-wrapper:not(:first-of-type) {
     margin-top: 20px;
   }
 
@@ -62,27 +62,32 @@
     justify-content: space-between;
     font-size: 15px;
   }
+
+  .all-posts-link {
+    margin-top: 26px;
+    text-align: right;
+    display: block;
+  }
 </style>
 
-{#each news as singleNews}
-  <div class="news-wrapper">
-
+{#each posts as singlePost}
+  <div class="all-posts-wrapper">
     <Article>
       <div slot="header" class="header">
         <img
           itemprop="image"
           class="image"
-          src={singleNews.image.guid ? singleNews.image.guid : '/noimg.jpg'}
-          alt={singleNews.title} />
+          src={singlePost.thumbnail ? singlePost.thumbnail : '/noimg.jpg'}
+          alt={singlePost.title} />
         <div class="content">
           <a
             rel="prefetch"
-            href={contentTypeToFrontUrl(singleNews)}
+            href={contentTypeToFrontUrl(singlePost)}
             itemprop="name">
-            {singleNews.title.rendered}
+            {singlePost.post_title}
           </a>
-          {#if singleNews.short_desc}
-            <span itemprop="description">{singleNews.short_desc}</span>
+          {#if singlePost.short_desc}
+            <span itemprop="description">{singlePost.short_desc}</span>
           {/if}
         </div>
       </div>
@@ -90,20 +95,20 @@
       <div slot="footer" class="footer">
         <time
           itemprop="datePublished"
-          content={new Date(singleNews.date).toISOString()}>
+          content={new Date(singlePost.date).toISOString()}>
           <i class="fa fa-file-text-o" />
-          {new Date(singleNews.date).toCustom()}
+          {new Date(singlePost.date).toCustom()}
         </time>
 
-        {#if singleNews.custom_fields.watch_counter}
-          <div class="looks">
-            <i class="fa fa-eye" />
-            {singleNews.custom_fields.watch_counter}
-          </div>
-        {/if}
+        <!--{#if singlePost.custom_fields.watch_counter}-->
+        <!--  <div class="looks">-->
+        <!--    <i class="fa fa-eye" />-->
+        <!--    {singlePost.custom_fields.watch_counter}-->
+        <!--  </div>-->
+        <!--{/if}-->
 
         <div class="more">
-          <a rel="prefetch" href={contentTypeToFrontUrl(singleNews)} itemprop="url">
+          <a rel="prefetch" href={contentTypeToFrontUrl(singlePost)} itemprop="url">
             Подробнее
           </a>
         </div>
@@ -111,3 +116,6 @@
     </Article>
   </div>
 {/each}
+
+<a href="/posts" class="all-posts-link">Все статьи</a>
+

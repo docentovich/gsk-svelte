@@ -6,12 +6,12 @@
   }
 
   export async function preload({ params, query }) {
-    const keyWord = query['key_word'] || ''
+
     const limit = query['limit'] || 10
     const currentPage = +(params['page'] || 1)
     const content = await (
       await this.fetch(
-        `/api/wp/v2/custom_routes/search?key_word=${keyWord}&page=${currentPage}&limit=${limit}`
+        `/api/wp/v2/custom_routes/all_posts?page=${currentPage}&limit=${limit}`
       )
     ).json()
 
@@ -20,14 +20,12 @@
       total: content.total,
       currentPage,
       limit,
-      keyWord,
       pages: generatePagination(limit, content.total),
     }
   }
 </script>
 
 <script>
-  import SearchInput from '../../components/SearchInput.svelte'
   import Article from '../../components/Article.svelte'
   import MainInnerPage from '../../components/MainInnerPage.svelte'
 
@@ -36,7 +34,6 @@
   export let currentPage
   export let pages
   export let limit
-  export let keyWord
   export let totalPages
   $: totalPages = Math.ceil(total / limit)
 
@@ -46,7 +43,7 @@
 
   export function genUrl(_page = 1, _limit = null) {
     _limit = _limit || limit
-    return `/search/${_page}?key_word=${keyWord}&limit=${_limit}`
+    return `/posts/${_page}?limit=${_limit}`
   }
 </script>
 
@@ -69,10 +66,6 @@
     }
   }
 
-  .search-input {
-    width: 250px;
-  }
-
   .per-page,
   .pagination,
   .total-results {
@@ -88,9 +81,7 @@
 </style>
 
 <MainInnerPage>
-  <div class="search-input">
-    <SearchInput />
-  </div>
+
 
   <div class="total-results">
     Всего:
