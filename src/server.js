@@ -1,6 +1,7 @@
 import sirv from 'sirv'
 import compression from 'compression'
 import * as sapper from '@sapper/server'
+import { redirects } from './redirects'
 
 const proxy = require('express-http-proxy'),
   https = require('https'),
@@ -39,12 +40,7 @@ httpApp.listen(3000, err => {
 })
 
 if (!dev) {
-  expressApp.get(
-    /\/(stati-pereplanirovki|soglasovanie-stroitelstva)\/([a-zA-Z\-\_\?\&]+)/,
-    (req, res) => {
-      res.redirect('/' + req.params[1])
-    }
-  )
+  redirects(expressApp)
 
   expressApp
     .use(
