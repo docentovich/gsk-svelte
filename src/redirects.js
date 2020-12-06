@@ -6,7 +6,7 @@ export function redirects(expressApp) {
     }
   )
 
-  [
+  const redirectArr = [
     ["pereplanirovki-nezhilich-pomescheniy", "перепланировки-нежилых-помещений"],
     ["pristrojka-k-zdaniju", "/proekt-pristrojki-k-kapital-nym-i-vremennym-nekapital-nym-zdanijam"],
     ["2012-03-12-10-48-03", "%d1%81%d1%82%d0%be%d0%b8%d0%bc%d0%be%d1%81%d1%82%d1%8c-%d0%bf%d1%80%d0%be%d0%b5%d0%ba%d1%82%d0%b8%d1%80%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d1%8f-%d0%b8%d0%b6%d1%81-%d0%b4%d0%bb%d1%8f-%d0%bf%d0%be%d1%81"],
@@ -192,10 +192,11 @@ export function redirects(expressApp) {
     ["stroitelstvo/2010-12-14-09-58-28/2010-12-14-10-04-21", "drenazhnaja-sistema"],
     ["stroitelstvo/2010-12-14-09-58-28/2010-12-14-10-04-31", "%d0%be%d1%82%d0%b4%d0%b5%d0%bb%d0%be%d1%87%d0%bd%d1%8b%d0%b5-%d1%80%d0%b0%d0%b1%d0%be%d1%82%d1%8b"],
     ["stroitelstvo/2010-12-14-10-16-15", "katkot"]
-  ]
-    .forEach(([_from, _to]) => {
-      expressApp.get(from(_from), redirect(_to));
-    });
+  ];
+
+  redirectArr.forEach(([_from, _to]) => {
+    expressApp.get(from(_from), redirect(_to));
+  });
 
   function from(url) {
     return new RegExp("^/" + trimSlash(url) + "/?(.html)?$");
