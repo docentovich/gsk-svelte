@@ -70,11 +70,32 @@ if (!dev) {
     ),
   }
 
+  let server;
+  let endDate;
 
-  const server = https.createServer(options, expressApp)
+  function setEndDate() {
+    endDate = new Date();
+    endDate.setDate((new Date()).getDate() + 30);
+  }
 
-  server.listen(3001, function() {
-    // https
-    console.log('https')
-  })
+  function startServer() {
+    setEndDate();
+    server && server.close();
+    server = https.createServer(options, expressApp)
+
+    server.listen(3001, function() {
+      // https
+      console.log('https')
+    });
+  }
+
+  startServer();
+  setInterval(() => {
+    let curDate  = new Date();
+    if(endDate && (endDate > curDate)){
+      return;
+    }
+    startServer();
+  },  1000 * 60 * 60 * 24 * 5)
+
 }
