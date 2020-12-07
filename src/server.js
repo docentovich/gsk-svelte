@@ -6,18 +6,27 @@ import { redirects } from './redirects'
 const proxy = require('express-http-proxy'),
   https = require('https'),
   fs = require('fs')
-const expressApp = require('express')()
-const httpApp = require('express')()
+const expressApp = require('express')() // https
+const httpApp = require('express')() // http
 
 const { NODE_ENV } = process.env
 const dev = NODE_ENV === 'development'
 
+// no dev http -> https && ignore .well-known
 if (!dev) {
+  httpApp.use(
+    '/.well-known/acme-challenge',
+    express.static(
+      '/var/www/front/static/letsencrypt/.well-known/acme-challenge',
+      { dotfiles: 'allow' }
+    )
+  )
   httpApp.get(/^((?!.*api.*).)*$/, function(req, res) {
     res.redirect('https://' + req.headers.host + req.url)
   })
 }
 
+// inner request network
 httpApp.use(
   '/api',
   proxy('http://web', {
@@ -27,6 +36,7 @@ httpApp.use(
   })
 )
 
+// use http:// for dev mode and use sapper
 if (dev) {
   httpApp.use(
     compression({ threshold: 0 }),
@@ -35,46 +45,36 @@ if (dev) {
   )
 }
 
+// need to be listened here in order to redirect && ignore .well-known in prod
+// and use http:// for dev mode
 httpApp.listen(3000, err => {
+  // http
   if (err) console.log('error', err)
 })
 
+// in prod mode prod redirects and use sapper
 if (!dev) {
   redirects(expressApp)
 
-  expressApp
-    .use(
-      '/api',
-      proxy('http://web', {
-        proxyReqPathResolver: function(req) {
-          return '/wp-json' + req.url
-        },
-      })
-    )
-    .use(
-      compression({ threshold: 0 }),
-      sirv('static', { dev }),
-      sapper.middleware()
-    )
+  expressApp.use(
+    compression({ threshold: 0 }),
+    sirv('static', { dev }),
+    sapper.middleware()
+  )
 
-  try {
-    // var options = {
-    //   key: fs.readFileSync('/etc/letsencrypt/live/example.org/privkey.pem'),
-    //   ca: fs.readFileSync('/etc/letsencrypt/live/example.org/ca_bundle.crt'),
-    //   cert: fs.readFileSync('/etc/letsencrypt/live/example.org/fullchain.pem'),
-    // }
-    const options = {
-      key: fs.readFileSync('/etc/ssl/private.key'),
-      ca: fs.readFileSync('/etc/ssl/ca_bundle.crt'),
-      cert: fs.readFileSync('/etc/ssl/certificate.crt'),
-    }
-
-    const server = https.createServer(options, expressApp)
-
-    server.listen(3001, function() {
-      console.log('https')
-    })
-  } catch (e) {
-    console.log('error:', e)
+  const options = {
+    key: fs.readFileSync('/etc/letsencrypt/live/www.gsk-stroy.ru/privkey.pem'),
+    ca: fs.readFileSync('/etc/letsencrypt/live/www.gsk-stroy.ru/chain.pem'),
+    cert: fs.readFileSync(
+      '/etc/letsencrypt/live/www.gsk-stroy.ru/fullchain.pem'
+    ),
   }
+
+
+  const server = https.createServer(options, expressApp)
+
+  server.listen(3001, function() {
+    // https
+    console.log('https')
+  })
 }
