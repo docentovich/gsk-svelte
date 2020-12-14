@@ -36,6 +36,14 @@ httpApp.use(
     },
   })
 )
+expressApp.use(
+  '/api',
+  proxy('http://web', {
+    proxyReqPathResolver: function(req) {
+      return '/wp-json' + req.url
+    },
+  })
+)
 
 // use http:// for dev mode and use sapper
 if (dev) {
