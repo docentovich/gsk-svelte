@@ -78,7 +78,7 @@
           itemprop="image"
           class="image"
           src={singlePost.thumbnail ? singlePost.thumbnail : '/noimg.jpg'}
-          alt={singlePost.title} />
+          alt={singlePost.title || 'no-image'} />
         <div class="content">
           <a
             rel="prefetch"
@@ -93,19 +93,12 @@
       </div>
 
       <div slot="footer" class="footer">
-        <time
+        <span
           itemprop="datePublished"
           content={new Date(singlePost.date).toISOString()}>
           <i class="fa fa-file-text-o" />
           {new Date(singlePost.date).toCustom()}
-        </time>
-
-        <!--{#if singlePost.custom_fields.watch_counter}-->
-        <!--  <div class="looks">-->
-        <!--    <i class="fa fa-eye" />-->
-        <!--    {singlePost.custom_fields.watch_counter}-->
-        <!--  </div>-->
-        <!--{/if}-->
+        </span>
 
         <div class="more">
           <a rel="prefetch" href={contentTypeToFrontUrl(singlePost)} itemprop="url">

@@ -63,7 +63,7 @@
     </div>
 
     <div class="contacts">
-      <a href="tel:(812) 628-93-95">(812) 628-93-95</a>
+      <a href="tel:88126289395">(812) 628-93-95</a>
       <a href="tel:gsk-stroy@mail.ru" id="email" itemprop="email">
         gsk-stroy@mail.ru
       </a>
