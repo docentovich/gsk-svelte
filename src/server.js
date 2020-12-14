@@ -6,8 +6,9 @@ import { redirects } from './redirects'
 const proxy = require('express-http-proxy'),
   https = require('https'),
   fs = require('fs')
-const expressApp = require('express')() // https
-const httpApp = require('express')() // http
+const express = require('express')
+const expressApp = express() // https
+const httpApp = express() // http
 
 const { NODE_ENV } = process.env
 const dev = NODE_ENV === 'development'
