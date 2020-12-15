@@ -7,25 +7,12 @@ const proxy = require('express-http-proxy'),
   https = require('https'),
   fs = require('fs')
 const express = require('express')
-const expressApp = express() // https
+const httpsApp = express() // https
 const httpApp = express() // http
 
-const { NODE_ENV } = process.env
-const dev = NODE_ENV === 'development'
-
-// no dev http -> https && ignore .well-known
-if (!dev) {
-  httpApp.use(
-    '/.well-known/acme-challenge',
-    express.static(
-      '/var/www/front/static/letsencrypt/.well-known/acme-challenge',
-      { dotfiles: 'allow' }
-    )
-  )
-  httpApp.get(/^((?!.*api.*).)*$/, function(req, res) {
-    res.redirect('https://' + req.headers.host + req.url)
-  })
-}
+const { NODE_ENV } = process.env;
+const dev = NODE_ENV === 'development';
+const prod = !dev;
 
 // inner request network
 httpApp.use(
@@ -36,7 +23,7 @@ httpApp.use(
     },
   })
 )
-expressApp.use(
+httpsApp.use(
   '/api',
   proxy('http://web', {
     proxyReqPathResolver: function(req) {
@@ -54,18 +41,33 @@ if (dev) {
   )
 }
 
-// need to be listened here in order to redirect && ignore .well-known in prod
-// and use http:// for dev mode
-httpApp.listen(3000, err => {
-  // http
-  if (err) console.log('error', err)
-})
+// on prod http -> https && ignore .well-known
+if (prod) {
+  httpApp.use(
+    '/.well-known/acme-challenge',
+    express.static(
+      '/var/www/front/static/letsencrypt/.well-known/acme-challenge',
+      { dotfiles: 'allow' }
+    )
+  )
+  httpApp.get(/^.*$/, function(req, res) {
+    res.redirect('https://' + req.headers.host + req.url)
+  })
 
-// in prod mode prod redirects and use sapper
-if (!dev) {
-  redirects(expressApp)
+  httpsApp.get(/.*/, function(req, res, next) {
+    const host = req.header("host");
+    if (host.match(/^www\..*/i)) {
+      next();
+    } else {
+      res.redirect(301, "https://www." + host + req.url);
+    }
+  });
 
-  expressApp.use(
+
+  // in prod mode prod redirects and use sapper
+  redirects(httpsApp)
+
+  httpsApp.use(
     compression({ threshold: 0 }),
     sirv('static', { dev }),
     sapper.middleware()
@@ -90,7 +92,7 @@ if (!dev) {
   function startServer() {
     setEndDate();
     server && server.close();
-    server = https.createServer(options, expressApp)
+    server = https.createServer(options, httpsApp)
 
     server.listen(3001, function() {
       // https
@@ -108,3 +110,11 @@ if (!dev) {
   },  1000 * 60 * 60 * 24 * 5)
 
 }
+
+
+// need to be listened here in order to redirect && ignore .well-known in prod
+// and use http:// for dev mode
+httpApp.listen(3000, err => {
+  // http
+  if (err) console.log('error', err)
+})
