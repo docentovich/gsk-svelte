@@ -74,8 +74,8 @@ if (prod) {
   )
 
   const options = {
-    key: fs.readFileSync('/etc/letsencrypt/live/www.gsk-stroy.ru/privkey.pem'),
-    ca: fs.readFileSync('/etc/letsencrypt/live/www.gsk-stroy.ru/chain.pem'),
+    key: fs.readFileSync('/etc/letsencrypt/live/gsk-stroy.ru/privkey.pem'),
+    ca: fs.readFileSync('/etc/letsencrypt/live/gsk-stroy.ru/chain.pem'),
     cert: fs.readFileSync(
       '/etc/letsencrypt/live/www.gsk-stroy.ru/fullchain.pem'
     ),
