@@ -12,6 +12,7 @@
     border-bottom: 5px solid #9c7e79;
     margin-bottom: 20px;
     padding-top: 5px;
+    margin-top: 10px;
 
     display: block;
     background: rgba(150, 140, 133, 0.1);
@@ -30,7 +31,7 @@
 
   li {
     padding: 0;
-    margin: 0 35px;
+    margin: 0 18px;
 
     list-style: none;
     text-align: center;
