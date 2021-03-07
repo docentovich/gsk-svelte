@@ -51,7 +51,7 @@ if (prod) {
       { dotfiles: 'allow' }
     )
   )
-  httpApp.get(/^.*$/, function(req, res) {
+  httpApp.get(/^(.(?!.well-known))*$/, function(req, res) {
     res.redirect('https://' + req.headers.host + req.url)
   })
 
@@ -123,13 +123,13 @@ function safeStartHttps(_context) {
 
 function startHttpsWithAutoRefresh(_options, _context) {
   startServer(_options, _context);
-  setInterval(() => {
-    let curDate  = new Date();
-    if(_context.endDate && (_context.endDate > curDate)){
-      return;
-    }
-    startServer(_options, _context);
-  },  1000 * 60 * 60 * 24 * 5)
+  // setInterval(() => {
+  //   let curDate  = new Date();
+  //   if(_context.endDate && (_context.endDate > curDate)){
+  //     return;
+  //   }
+  //   startServer(_options, _context);
+  // },  1000 * 60 * 60 * 24 * 5)
 }
 
 function setEndDate(_context) {
