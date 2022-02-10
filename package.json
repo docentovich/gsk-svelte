@@ -37,7 +37,7 @@
     "cssnano": "^4.1.10",
     "eslint": "^6.8.0",
     "eslint-plugin-svelte3": "^2.7.3",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "npm-run-all": "^4.1.5",
     "postcss": "^7.0.27",
     "postcss-cssnext": "^3.1.0",
