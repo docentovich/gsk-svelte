@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "compression": "^1.7.1",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-http-proxy": "^1.6.2",
     "express-unless": "^0.5.0",
     "polka": "next",
